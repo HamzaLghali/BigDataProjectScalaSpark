@@ -1,0 +1,15 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - docker build -t your_gitlab_registry/your_project/your_scala_app:latest .
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker push your_gitlab_registry/your_project/your_scala_app:latest
+
+deploy:
+  stage: deploy
+  script:
+    - docker run -d -p 8080:8080 your_gitlab_registry/your_project/your_scala_app:latest
