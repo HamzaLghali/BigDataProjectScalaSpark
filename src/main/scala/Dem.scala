@@ -6,6 +6,17 @@ object Dem extends App{
 
   val spark = SparkSession.builder().appName("dem").master("local[*]").getOrCreate()
 
+println("spark works")
+  val df = spark.read
+                .format("csv")
+                .option("header", "true")
+    .option("delimiter", ",")
+    .load("D:/Scala/filecsv.csv")
 
-  println("Spark created")
+
+df.show()
+
+spark.stop
+
+
 }
